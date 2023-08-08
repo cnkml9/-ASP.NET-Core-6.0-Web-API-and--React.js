@@ -1,0 +1,256 @@
+﻿<!DOCTYPE html>
+<!-- Coding by CodingLab | www.codinglabweb.com-->
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title> 
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/stylek.css" />
+
+  <!-- Boxicons CSS -->
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+  <div class="container1">
+    <form id="registerForm">
+      <img src="/logo-dark_tr.png" style="position: relative;" width="370" height="150">
+
+      <div class="field username-field">
+        <div class="input-field">
+          <input type="text" placeholder="Kullanıcı adı girin" class="text" required="required" id="username">
+        </div>
+        <span class="error username-error">
+          <i class="bx bx-error-circle error-icon"></i>
+          <p class="error-text">Lütfen geçerli bir kullanıcı adı girin</p>
+        </span>
+      </div>
+
+      <div class="field email-field">
+        <div class="input-field">
+          <input type="email" placeholder="E-posta adresinizi girin" class="email" required="required" id="email">
+        </div>
+        <span class="error email-error">
+          <i class="bx bx-error-circle error-icon"></i>
+          <p class="error-text">Lütfen geçerli bir e-posta adresi girin</p>
+        </span>
+      </div>
+
+      <div class="field create-password">
+        <div class="input-field">
+          <input
+            type="password"
+            placeholder="Şifre oluşturun"
+            class="password"
+            required="required"
+            id="password"
+          />
+          <i class="bx bx-hide show-hide" id="showHide1"></i>
+        </div>
+        <span class="error password-error">
+          <i class="bx bx-error-circle error-icon"></i>
+          <p class="error-text">
+            Lütfen en az 6 karakter içeren, rakam, küçük ve büyük harf içeren bir şifre girin.
+          </p>
+        </span>
+      </div>
+
+      <div class="field confirm-password">
+        <div class="input-field">
+          <input
+            type="password"
+            placeholder="Şifrenizi onaylayın"
+            class="cPassword"
+            required="required"
+            id="cPassword"
+          />
+          <i class="bx bx-hide show-hide" id="showHide2"></i>
+        </div>
+        <span class="error cPassword-error">
+          <i class="bx bx-error-circle error-icon"></i>
+          <p class="error-text">Şifreler uyuşmuyor</p>
+        </span>
+      </div>
+
+      <button type="submit" class="button btn1" id="b1">Kayıt Ol</button>
+      <a class="text-light m-lg-3" style="color: antiquewhite;" href="giris.html">Zaten Üye misiniz?</a>
+
+
+      
+    </form>
+      <!-- reCAPTCHA widget -->
+  <div class="field recaptcha-field">
+    <div class="input-field">
+      <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="onRecaptchaSuccess"></div>
+      <input type="hidden" id="recaptchaResponse" name="recaptchaResponse">
+    </div>
+    <span class="error recaptcha-error">
+      <i class="bx bx-error-circle error-icon"></i>
+      <p class="error-text">Lütfen reCAPTCHA doğrulamasını yapın</p>
+    </span>
+  </div>
+
+  </div>
+
+</div>
+
+  <!-- JavaScript -->
+  
+  <script>
+     // reCAPTCHA success callback
+     function onRecaptchaSuccess(response) {
+      document.getElementById('recaptchaResponse').value = response;
+    }
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var cPassword = document.getElementById('cPassword').value;
+      var email = document.getElementById('email').value;
+
+          // reCAPTCHA validation
+          if (recaptchaResponse === "") {
+        alert("Lütfen reCAPTCHA doğrulamasını yapın.");
+        return;
+      }
+         // ... Existing form validation ...
+
+         var registerData = {
+        userName: username,
+        password: password,
+        email: email,
+        recaptchaResponse: recaptchaResponse
+      };
+      if (username === "") {
+        alert("Lütfen geçerli bir kullanıcı adı girin.");
+        return;
+      }
+
+      if (email === "") {
+        alert("Lütfen geçerli bir e-posta adresi girin.");
+        return;
+      }
+
+      if (password.length < 6 || !/[0-9]/.test(password) || !/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+        alert("Lütfen en az 6 karakter içeren, rakam, küçük ve büyük harf içeren bir şifre girin.");
+        return;
+      }
+
+      if (password !== cPassword) {
+        alert("Şifreler uyuşmuyor.");
+        return;
+      }
+
+      var registerData = {
+        userName: username,
+        password: password,
+        email: email
+      };
+
+      var registerUrl = 'https://localhost:7271/register';
+
+      fetch(registerUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(registerData)
+      })
+      .then(function(data) {
+        console.log('Kayıt başarılı:', data);
+        window.open('http://127.0.0.1:5500/admin%20panel/giris.html', '_self');
+        alert('Kayıt başarılı');
+      });
+
+    });
+
+    // Şifre göster/gizle işlevi
+    const showHideBtn1 = document.getElementById('showHide1');
+    const passwordInput = document.getElementById('password');
+
+    showHideBtn1.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showHideBtn1.classList.remove('bx-hide');
+        showHideBtn1.classList.add('bx-show');
+      } else {
+        passwordInput.type = 'password';
+        showHideBtn1.classList.remove('bx-show');
+        showHideBtn1.classList.add('bx-hide');
+      }
+    });
+
+    const showHideBtn2 = document.getElementById('showHide2');
+    const cPasswordInput = document.getElementById('cPassword');
+
+    showHideBtn2.addEventListener('click', function() {
+      if (cPasswordInput.type === 'password') {
+        cPasswordInput.type = 'text';
+        showHideBtn2.classList.remove('bx-hide');
+        showHideBtn2.classList.add('bx-show');
+      } else {
+        cPasswordInput.type = 'password';
+        showHideBtn2.classList.remove('bx-show');
+        showHideBtn2.classList.add('bx-hide');
+      }
+    });
+  </script>
+
+  <!-- Dil değiştirme bayrakları -->
+  <div style="position: fixed; top: 10px; right: 10px;">
+    <a href="?lang=en"><img src="/admin panel/Flag_of_the_United_Kingdom.png" alt="English Flag" width="50"></a>
+    <a href="?lang=tr"><img src="/admin panel/Flag_of_Turkey.svg.png" alt="Türk Bayrağı" width="50"></a>
+  </div>
+
+  <!-- Dil değişikliği işlemleri -->
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+
+    function setLanguage(language) {
+      if (language === 'tr') {
+        document.documentElement.lang = 'tr';
+        document.title = 'KOS';
+        document.getElementById('username').placeholder = 'Kullanıcı Adı';
+        document.getElementById('email').placeholder = 'E-posta adresinizi girin';
+        document.getElementById('password').placeholder = 'Şifre oluşturun';
+        document.getElementById('cPassword').placeholder = 'Şifrenizi onaylayın';
+        document.getElementById('b1').textContent = 'Kayıt Ol';
+        document.querySelector('a[href="giris.html"]').textContent = 'Zaten Üye misiniz?';
+      } else if (language === 'en') {
+        document.documentElement.lang = 'en';
+        document.title = 'KOS';
+        document.getElementById('username').placeholder = 'Enter a username';
+        document.getElementById('email').placeholder = 'Enter your email';
+        document.getElementById('password').placeholder = 'Create password';
+        document.getElementById('cPassword').placeholder = 'Confirm password';
+        document.getElementById('b1').textContent = 'Sign Up';
+        document.querySelector('a[href="giris.html"]').textContent = "Already Member?";
+      }
+    }
+
+    if (lang === 'en') {
+      setLanguage('en');
+    } else {
+      setLanguage('tr');
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="footer" style="position: fixed; bottom: 0; width: 100%; background-color: aliceblue; text-align: center;">
+    <div class="container-fluid">
+      <div class="row">
+        <a class="col-4 text-center" href="http://" target="_blank" rel="noopener noreferrer">Telif Hakkı ©</a>
+        <a class="col-4 text-center" href="http://" target="_blank" rel="noopener noreferrer">İntern Team</a>
+        <p class="col-4 text-center ">V.1.005</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+</body>
+</html>
