@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<form id="loginForm">
+
+    <div class="container mt-lg-4">
+        <div class="row ">
+            <div class="col-4 mx-auto">
+                <div class="mb-3">
+                    <img src="~/kosPanel/logo-dark_tr.png" alt="KOS logo" class="mb-3 w-100" ;>
+                    <label for="username" class="form-label text-light" id="usernameLabel">Username</label>
+                    <input type="username" class="form-control" required="required" id="username">
+
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label text-light" id="passwordLabel">Password</label>
+                    <input type="password" class="form-control" required="required" id="password">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label text-light" for="exampleCheck1" id="rememberMeLabel">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary" id="loginButton">Log in</button>
+                <a class="text-light m-lg-3" style="color: antiquewhite;" href="kayit.html" id="noAccountLabel">Don't you have an account?</a>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<!-- ... (önceki HTML kodu) ... -->
+
+
+
+<script>
+    let girisDenemeleri = 0;
+    const maksimumGirisDenemeleri = 3;
+    const gecisSuresi = 60000; // 1 dakika (1 dakika = 60.000 milisaniye)
+
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginButton = document.getElementById('loginButton');
+
+    function disableInputs() {
+        usernameInput.disabled = true;
+        passwordInput.disabled = true;
+        loginButton.disabled = true;
+
+        setTimeout(enableInputs, gecisSuresi);
+    }
+
+    function enableInputs() {
+        usernameInput.disabled = false;
+        passwordInput.disabled = false;
+        loginButton.disabled = false;
+        girisDenemeleri = 0;
+    }
+
+    function disableLogin() {
+        loginButton.disabled = true;
+    }
+
+    function enableLogin() {
+        loginButton.disabled = false;
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Check if login is disabled due to maximum login attempts
+        const disabledUntil = parseInt(localStorage.getItem('disabledUntil') || '0');
+        if (disabledUntil > Date.now()) {
+            alert("You have reached the maximum login attempts. Please try again in 1 minute.");
+            return;
+        }
+
+        const kullaniciAdi = usernameInput.value;
+        const sifre = passwordInput.value;
+
+        const girisVerileri = {
+            username: kullaniciAdi,
+            password: sifre
+        };
+
+        const loginUrl = 'https://localhost:7271/login';
+
+        fetch(loginUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(girisVerileri)
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Giriş hatası: ' + response.status);       //F5 ATILSA DA ÇALIŞMIYOR
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                console.log('Giriş başarılı:', data);
+                localStorage.removeItem('disabledUntil'); // Reset the disabled time
+                localStorage.setItem('token', data.token);
+                window.location.href = "tables.html";
+            })
+            .catch(function (error) {
+                console.log('Giriş hatası:', error);
+                girisDenemeleri++;
+                if (girisDenemeleri >= maksimumGirisDenemeleri) {
+                    const disabledUntil = Date.now() + gecisSuresi;
+                    localStorage.setItem('disabledUntil', disabledUntil);
+                    alert("You have reached the maximum login attempts. Please try again in 1 minute.");
+                    disableInputs();
+                    // If you want to completely disable the login button, uncomment the line below:
+                    // disableLogin();
+                } else {
+                    alert('Username and password do not match.');
+                }
+            });
+    });
+</script>
+
+
+<!-- deneme -->
+<!-- Dil değiştirme bayrakları -->
+<div style="position: fixed; top: 10px; right: 10px;">
+    <a href="?lang=en"><img src="~/kospanel/admin panel/Flag_of_the_United_Kingdom.png" alt="English Flag" width="50"></a>
+    <a href="?lang=tr"><img src="~/kospanel/admin panel/Flag_of_Turkey.svg.png" alt="Türk Bayrağı" width="50"></a>
+</div>
+
+<!-- Dil değişikliği işlemleri -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+
+    function setLanguage(language) {
+        if (language === 'tr') {
+            document.documentElement.lang = 'tr';
+            document.title = 'KOS';
+            document.getElementById('usernameLabel').textContent = 'Kullanıcı Adı';
+            document.getElementById('passwordLabel').textContent = 'Şifre';
+            document.getElementById('loginButton').textContent = 'Giriş Yap';
+            document.getElementById('rememberMeLabel').textContent = 'Beni Hatırla';
+            document.getElementById('noAccountLabel').textContent = 'Hesabınız yok mu?';
+        } else if (language === 'en') {
+            document.documentElement.lang = 'en';
+            document.title = 'KOS';
+            document.getElementById('usernameLabel').textContent = 'Username';
+            document.getElementById('passwordLabel').textContent = 'Password';
+            document.getElementById('loginButton').textContent = 'Log in';
+            document.getElementById('rememberMeLabel').textContent = 'Remember me';
+            document.getElementById('noAccountLabel').textContent = "Don't you have an account?";
+        }
+    }
+
+    if (lang === 'en') {
+        setLanguage('en');
+    } else {
+        setLanguage('tr');
+    }
+</script>

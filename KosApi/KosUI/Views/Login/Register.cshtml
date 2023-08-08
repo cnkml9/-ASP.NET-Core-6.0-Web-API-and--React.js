@@ -1,0 +1,221 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <form id="registerForm">
+        <img src="~/kospanel/logo-dark_tr.png" style="position: relative;" width="370" height="150">
+
+
+        <div class="field username-field">
+            <div class="input-field">
+                <input type="text" placeholder="Enter a username" class="text" required="required" id="username">
+            </div>
+            <span class="error username-error">
+                <i class="bx bx-error-circle error-icon"></i>
+                <p class="error-text">Please enter a valid username</p>
+            </span>
+        </div>
+
+        <div class="field email-field">
+            <div class="input-field">
+                <input type="email" placeholder="Enter your email" class="email" required="required" id="email">
+            </div>
+            <span class="error email-error">
+                <i class="bx bx-error-circle error-icon"></i>
+                <p class="error-text">Please enter a valid email address</p>
+            </span>
+        </div>
+
+        <div class="field create-password">
+            <div class="input-field">
+                <input type="password"
+                       placeholder="Create password"
+                       class="password"
+                       required="required"
+                       id="password" />
+                <i class="bx bx-hide show-hide" id="showHide1"></i>
+            </div>
+            <span class="error password-error">
+                <i class="bx bx-error-circle error-icon"></i>
+                <p class="error-text">
+                    Please enter a password with at least 6 characters, containing numbers, lowercase, and uppercase letters.
+                </p>
+            </span>
+        </div>
+
+        <div class="field confirm-password">
+            <div class="input-field">
+                <input type="password"
+                       placeholder="Confirm your password"
+                       class="cPassword"
+                       required="required"
+                       id="cPassword" />
+                <i class="bx bx-hide show-hide" id="showHide2"></i>
+            </div>
+            <span class="error cPassword-error">
+                <i class="bx bx-error-circle error-icon"></i>
+                <p class="error-text">Passwords do not match</p>
+            </span>
+        </div>
+
+        <button type="submit" class="button btn1" id="b1">Register</button>
+        <a class="text-light m-lg-3" style="color: antiquewhite;" href="login.html">Already a member?</a>
+
+    </form>
+    <!-- reCAPTCHA widget -->
+ @*   <div class="field recaptcha-field">
+        <div class="input-field">
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" data-callback="onRecaptchaSuccess"></div>
+            <input type="hidden" id="recaptchaResponse" name="recaptchaResponse">
+        </div>
+        <span class="error recaptcha-error">
+            <i class="bx bx-error-circle error-icon"></i>
+            <p class="error-text">Please complete the reCAPTCHA verification</p>
+        </span>
+    </div>*@
+
+
+<!-- JavaScript -->
+
+<script>
+    // reCAPTCHA success callback
+    function onRecaptchaSuccess(response) {
+        document.getElementById('recaptchaResponse').value = response;
+    }
+    document.getElementById('registerForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var cPassword = document.getElementById('cPassword').value;
+        var email = document.getElementById('email').value;
+
+        // reCAPTCHA validation
+        if (recaptchaResponse === "") {
+            alert("Please complete the reCAPTCHA verification.");
+            return;
+        }
+        // ... Existing form validation ...
+
+        var registerData = {
+            userName: username,
+            password: password,
+            email: email,
+            recaptchaResponse: recaptchaResponse
+        };
+        if (username === "") {
+            alert("Please enter a valid username.");
+            return;
+        }
+
+        if (email === "") {
+            alert("Please enter a valid email address.");
+            return;
+        }
+
+        if (password.length < 6 || !/[0-9]/.test(password) || !/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+            alert("Please enter a password with at least 6 characters, containing numbers, lowercase, and uppercase letters.");
+            return;
+        }
+
+        if (password !== cPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        var registerData = {
+            userName: username,
+            password: password,
+            email: email
+        };
+
+        var registerUrl = 'https://localhost:7271/register';
+
+        fetch(registerUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(registerData)
+        })
+            .then(function (data) {
+                console.log('Registration successful:', data);
+                window.open('http://127.0.0.1:5500/admin%20panel/login.html', '_self');
+                alert('Registration successful');
+            });
+
+    });
+
+    // Show/hide password functionality
+    const showHideBtn1 = document.getElementById('showHide1');
+    const passwordInput = document.getElementById('password');
+
+    showHideBtn1.addEventListener('click', function () {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            showHideBtn1.classList.remove('bx-hide');
+            showHideBtn1.classList.add('bx-show');
+        } else {
+            passwordInput.type = 'password';
+            showHideBtn1.classList.remove('bx-show');
+            showHideBtn1.classList.add('bx-hide');
+        }
+    });
+
+    const showHideBtn2 = document.getElementById('showHide2');
+    const cPasswordInput = document.getElementById('cPassword');
+
+    showHideBtn2.addEventListener('click', function () {
+        if (cPasswordInput.type === 'password') {
+            cPasswordInput.type = 'text';
+            showHideBtn2.classList.remove('bx-hide');
+            showHideBtn2.classList.add('bx-show');
+        } else {
+            cPasswordInput.type = 'password';
+            showHideBtn2.classList.remove('bx-show');
+            showHideBtn2.classList.add('bx-hide');
+        }
+    });
+</script>
+
+<!-- Language Change Flags -->
+<div style="position: fixed; top: 10px; right: 10px;">
+    <a href="?lang=en"><img src="~/kospanel/admin%20panel/Flag_of_the_United_Kingdom.png" alt="English Flag" width="50"></a>
+    <a href="?lang=tr"><img src="~/kospanel/admin%20panel/Flag_of_Turkey.svg.png" alt="Turkish Flag" width="50"></a>
+</div>
+
+<!-- Language Change Script -->
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+
+    function setLanguage(language) {
+        if (language === 'tr') {
+            document.documentElement.lang = 'tr';
+            document.title = 'KOS';
+            document.getElementById('username').placeholder = 'Kullanıcı Adı';
+            document.getElementById('email').placeholder = 'E-posta adresinizi girin';
+            document.getElementById('password').placeholder = 'Şifre oluşturun';
+            document.getElementById('cPassword').placeholder = 'Şifrenizi onaylayın';
+            document.getElementById('b1').textContent = 'Kayıt Ol';
+            document.querySelector('a[href="login.html"]').textContent = 'Zaten Üye misiniz?';
+        } else if (language === 'en') {
+            document.documentElement.lang = 'en';
+            document.title = 'KOS';
+            document.getElementById('username').placeholder = 'Enter a username';
+            document.getElementById('email').placeholder = 'Enter your email';
+            document.getElementById('password').placeholder = 'Create password';
+            document.getElementById('cPassword').placeholder = 'Confirm password';
+            document.getElementById('b1').textContent = 'Register';
+            document.querySelector('a[href="login.html"]').textContent = "Already a member?";
+        }
+    }
+
+    if (lang === 'en') {
+        setLanguage('en');
+    } else {
+        setLanguage('tr');
+    }
+</script>
