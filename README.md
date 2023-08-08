@@ -1,23 +1,18 @@
-# Proje Açıklaması: ASP.NET Core 6.0 Web API ve React.js Admin Paneli
+Project Description: ASP.NET Core 6.0 Web API and React.js Admin Panel
+This GitHub repository contains a web application developed with the aim of creating an advanced management panel. The project is built using ASP.NET Core 6.0 Web API and React.js technologies.
 
-Bu GitHub deposu, gelişmiş bir yönetim paneli oluşturmak amacıyla geliştirilen bir web uygulamasını içermektedir. Proje, ASP.NET Core 6.0 Web API ve React.js teknolojilerini kullanarak oluşturulmuştur.
-
-## Özellikler
-
-- ASP.NET Core 6.0 Web API: Projenin backend tarafında, güçlü ve ölçeklenebilir bir API hizmeti için ASP.NET Core 6.0 kullanılmıştır.
-- Identity Yönetimi: Kimlik doğrulama ve yetkilendirme işlemleri ASP.NET Core Identity ile yönetilir.
-- Entity Framework Core: Veritabanı erişimi için Entity Framework Core kullanılarak, verilerin veritabanında saklanması ve yönetimi sağlanmıştır.
-- AutoMapper: Veri dönüşümlerini kolaylaştırmak amacıyla AutoMapper kullanılarak, veri nesneleri arasında dönüşümler yapılmıştır.
-- React.js: Kullanıcı arayüzü için modern ve etkileşimli bir React.js tabanlı frontend oluşturulmuştur.
-- Admin Paneli: Yönetim paneli, kullanıcıların çeşitli işlemleri gerçekleştirebileceği kullanıcı dostu bir arayüz sunar.
-
-## Projeyi Çalıştırma
-
-- **Backend**: Projeyi çalıştırmak için öncelikle ASP.NET Core Web API'yi başlatmalısınız. Bu, API hizmetini ayağa kaldırmak için gerekli adımları içerir.
-- **Frontend**: Ardından React.js uygulamasını başlatarak yönetim panelini kullanmaya başlayabilirsiniz. Gerekli bağımlılıkları kurun ve React.js uygulamasını ayağa kaldırın.
-
-## Notlar
-
-- Proje kapsamlı bir şekilde ASP.NET Core, React.js ve diğer modern teknolojileri kullanarak bir admin paneli oluşturmak amacıyla geliştirilmiştir.
-- `.gitignore` dosyası, gereksiz dosyaları ve klasörleri deposuna yüklemeden projeyi sürdürmeniz için yapılandırılmıştır.
-- Bu proje, hem backend hem de frontend geliştirmenin temel prensiplerini anlamak ve uygulamak amacıyla oluşturulmuştur.
+Features
+ASP.NET Core 6.0 Web API: ASP.NET Core 6.0 is used on the backend to provide a robust and scalable API service.
+Identity Management: Authentication and authorization processes are managed using ASP.NET Core Identity.
+Entity Framework Core: Entity Framework Core is utilized for database access, ensuring storage and management of data in the database.
+AutoMapper: AutoMapper is employed to facilitate data transformations between different data objects.
+React.js: A modern and interactive React.js-based frontend is developed for the user interface.
+Admin Panel: The administration panel offers a user-friendly interface for users to perform various operations.
+Running the Project
+Backend: To run the project, you need to start the ASP.NET Core Web API first. This includes the necessary steps to launch the API service.
+Frontend: Afterward, you can start using the management panel by launching the React.js application. Install the required dependencies and run the React.js application.
+Notes
+This project is developed comprehensively using ASP.NET Core, React.js, and other modern technologies to create an admin panel.
+The .gitignore file is configured to exclude unnecessary files and folders from being uploaded to the repository, enabling seamless project continuation.
+The primary goal of this project is to understand and implement fundamental principles of both backend and frontend development.
+Bu metni projenizin README.md dosyasına yapıştırarak projenizi İngilizce olarak tanıtabilirsiniz.
