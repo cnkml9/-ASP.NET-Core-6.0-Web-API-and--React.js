@@ -1,0 +1,23 @@
+{
+    "users": [
+        {
+            "id": "1",
+            "names": "Kamil",
+            "salary": "500000",
+            "department": "Software"
+          },
+          {
+            "id": "2",
+            "names": "Yiğit",
+            "salary": "5621000",
+            "department": "Software"
+          },
+          {
+            "id": "3",
+            "names": "Ahmet",
+            "salary": "3000",
+            "department": "Software"
+          }
+        
+    ]
+}

@@ -1,0 +1,147 @@
+/*navbar*/
+.navbar{
+  background-color: #1D0251 !important;
+  
+}
+.navbar a {
+  color:white !important;
+}
+
+/* Sidebar Styling */
+#sidebar{
+  background-color: #1D0251 !important; /* Açık gri arkaplan */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+}
+
+.sidebar {
+  background-color: #ffb142 !important; /* Açık gri arkaplan */
+  color: white; /* Siyah yazı rengi */
+  height: 100vh;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 50px; /* "X" işareti için alan bırakma */
+  margin-bottom: 15px;
+  padding-left:2px ;
+}
+
+.sidebar.closed {
+  width: 0;
+  padding: 0;
+}
+.sidebar.open {
+  width: 0;
+  padding: 0;
+}
+
+.sidebar-header {
+  padding: 1rem 1rem 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-unstyled button{
+  margin-top: 2px;
+  background-color: #340256;
+  color: white !important;
+  border: none;
+  text-align: left;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+
+.list-unstyled button:hover{
+  transition: all 0.3s ease;
+  background-color: #510882;
+
+}
+/* Sidebar Close Button Styling */
+
+/* Content Styling */
+.content {
+  margin-top: 20px;
+  background-color: white;
+  height: 95vh;
+}
+
+
+
+/*
+datatable
+*/
+/* DataTable.css */
+
+/* DataTable.css */
+
+.foot {
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  height: 50px;
+  padding: 15px;
+  margin-top: 5px !important;
+  background-color: black !important;
+  color:white;
+  padding: 100px;
+  padding-bottom:4rem;
+}
+
+/* Bu stil kuralları footer'ın görünümünü özelleştirir */
+.footer {
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Opsiyonel olarak footer'ın arka plan rengini belirleyebilirsiniz */
+.footer.bg-light {
+  background-color: #f8f9fa;
+}
+
+/* Ana içeriğin sabit footer ile çakışmasını engellemek için ek bir stil kuralları */
+.container-main {
+  margin-bottom: 60px; /* Footer yüksekliği kadar alt boşluk bırakılıyor */
+}
+
+.record-options {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.record-options select {
+  margin-right: 10px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  border: none;
+
+}
+
+.pagination button {
+  background-color: white;
+  border: black;
+  margin: 0 2px;
+  padding: 8px;
+  cursor: pointer;
+  color: black;
+  
+}
+
+.pagination button:disabled {
+  border: black;
+  background-color: white;
+  cursor: default;
+  color: #000000;
+}
+
+

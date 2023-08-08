@@ -1,0 +1,75 @@
+/*accordion*/
+.wraper{
+    display: flex;
+    height: 300px;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  .accordion{
+   width: 700px;
+   height: 300px;
+  }
+  .item{
+  background: #1d0251;  
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  
+  
+  }
+  .item:hover{
+    background-color: blueviolet;
+  }
+  .title{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }   
+  
+  .content2{
+   color: white;
+  }
+  /*accordion*/
+
+  .mehmet {
+    background-color: #1d0251;
+    border-radius: 10px;
+    width: 100%;
+    margin-left: 0%;
+    padding: 10px; /* Örnek değer */
+    max-height: 200px !important;
+    overflow-y: auto;
+}
+.kamil{
+
+    text-align: center;
+}
+.company2{   margin-top: 0px;
+    margin-bottom: 30px;
+    height: auto;
+    width: auto;
+    font-weight: 600;
+    color: white;
+    font-size: 28px;
+    
+    text-align: center;
+}
+
+.company2 select{
+    width: 100%;
+    padding: 15px;
+}
+
+.dacia {
+    color: white;
+    margin-top: 20px;
+    display:grid;
+    height: auto;
+    width:auto;
+    justify-content: center;
+    align-items: center;
+}

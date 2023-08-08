@@ -1,0 +1,40 @@
+.mehmet{
+    background-color: #1d0251;
+    border-radius: 10px;
+    width: 100%;
+    margin-left: 0%;
+    padding: 100px;
+ 
+        max-height: 400px !important; /* Örnek bir max-height değeri */
+        overflow-y: auto !important; /* Scroll bar göstermek için */
+      
+      
+}
+.kamil{
+
+    text-align: center;
+}
+.company2{   margin-top: 0px;
+    margin-bottom: 30px;
+    height: auto;
+    width: auto;
+    font-weight: 600;
+    color: white;
+    font-size: 28px;
+    
+    text-align: center;
+}
+.form-select  {
+    width: 100%;
+    padding: 15px;
+}
+
+.dacia {
+    color: white;
+    margin-top: 20px;
+    display:grid;
+    height: auto;
+    width:auto;
+    justify-content: center;
+    align-items: center;
+}
